@@ -1,9 +1,11 @@
+# src/main.py
+
 """
 main.py
 
 Opinion Mining System for analyzing the 2024 Edo State Governmental Election.
 This script collects data from a specified source, analyzes the sentiment using VADER,
-and visualizes the sentiment distribution.
+visualizes sentiment distribution, and saves results into SQLite database.
 """
 
 import sys
@@ -12,18 +14,17 @@ import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Add the project root directory to the Python path
-# This ensures that Python can find the modules regardless of where the script is run from
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# If running from the src directory, use these imports
+# Existing imports from your modules
 try:
     from data_collection import collect_tweets, scrape_web_page, fetch_news
     from sentiment_analysis import analyze_and_classify
+    from database import initialize_db, insert_sentiment_data  # <- ADDED explicitly here ✅
 except ImportError:
-    # If running from the project root, use these imports
     from src.data_collection import collect_tweets, scrape_web_page, fetch_news
     from src.sentiment_analysis import analyze_and_classify
+    from src.database import initialize_db, insert_sentiment_data  # <- ADDED explicitly here ✅
 
 def main():
     parser = argparse.ArgumentParser(
@@ -50,7 +51,6 @@ def main():
         if not articles:
             print("No news articles found.")
             sys.exit(1)
-        # Use both title and description from each article as text
         texts = [
             f"{article.get('title', '')} {article.get('description', '')}".strip()
             for article in articles
@@ -59,10 +59,23 @@ def main():
         print("Invalid source. Choose one of: twitter, web, news.")
         sys.exit(1)
 
+    # Initialize DB (run this before inserting data)
+    initialize_db()  # <- Clearly ADDED HERE ✅
+
     # Process texts with sentiment analysis
     results = []
     for text in texts:
         scores, label = analyze_and_classify(text)
+        
+        # === STEP 3: INSERT INTO DATABASE HERE ===
+        insert_sentiment_data(
+            source=args.source,
+            content=text,
+            sentiment_label=label,
+            sentiment_score=scores['compound']
+        )  # <- Explicitly ADDED HERE ✅
+        # === END OF STEP 3 ===
+        
         results.append({
             "text": text,
             "compound": scores['compound'],
@@ -74,7 +87,7 @@ def main():
     print("\nSentiment Analysis Results (first 5 rows):")
     print(df.head())
 
-    # Visualize the sentiment distribution
+    # Visualize sentiment distribution
     distribution = df['label'].value_counts()
     plt.figure(figsize=(8, 6))
     distribution.plot(kind="bar")
