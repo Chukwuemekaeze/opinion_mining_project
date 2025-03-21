@@ -47,42 +47,42 @@ except ImportError:
 # ==============================
 # 3) TWITTER API DATA COLLECTION
 # ==============================
-# def collect_tweets(query="Edo State election", max_results=10):
-#     """
-#     Collect tweets using Twitter API v2 via Tweepy.
+def collect_tweets(query="Edo State election", max_results=10):
+    """
+    Collect tweets using Twitter API v2 via Tweepy.
     
-#     Parameters:
-#         query (str): The search query for tweets.
-#         max_results (int): Maximum number of tweets to return (up to 100).
+    Parameters:
+        query (str): The search query for tweets.
+        max_results (int): Maximum number of tweets to return (up to 100).
 
-#     Returns:
-#         list: A list of tweet texts.
-#     """
-#     if not HAS_CONFIG or not hasattr(config, 'BEARER_TOKEN'):
-#         print("No BEARER_TOKEN found in config.py. Please add 'BEARER_TOKEN' for Twitter API.")
-#         return []
+    Returns:
+        list: A list of tweet texts.
+    """
+    if not HAS_CONFIG or not hasattr(config, 'BEARER_TOKEN'):
+        print("No BEARER_TOKEN found in config.py. Please add 'BEARER_TOKEN' for Twitter API.")
+        return []
 
-#     client = tweepy.Client(bearer_token=config.BEARER_TOKEN, wait_on_rate_limit=True)
+    client = tweepy.Client(bearer_token=config.BEARER_TOKEN, wait_on_rate_limit=True)
 
-#     try:
-#         response = client.search_recent_tweets(
-#             query=query,
-#             max_results=min(max_results, 100),
-#             tweet_fields=["created_at", "text"]
-#         )
-#     except tweepy.errors.Forbidden as e:
-#         print(f"403 Forbidden: {e}")
-#         print("Your account may not have access to the needed v2 endpoints.")
-#         return []
-#     except tweepy.TweepyException as e:
-#         print(f"Error using Tweepy v2: {e}")
-#         return []
+    try:
+        response = client.search_recent_tweets(
+            query=query,
+            max_results=min(max_results, 100),
+            tweet_fields=["created_at", "text"]
+        )
+    except tweepy.errors.Forbidden as e:
+        print(f"403 Forbidden: {e}")
+        print("Your account may not have access to the needed v2 endpoints.")
+        return []
+    except tweepy.TweepyException as e:
+        print(f"Error using Tweepy v2: {e}")
+        return []
 
-#     if not response.data:
-#         return []
+    if not response.data:
+        return []
 
-#     tweets = [tweet.text for tweet in response.data]
-#     return tweets
+    tweets = [tweet.text for tweet in response.data]
+    return tweets
 
 # ==============================
 # 4) WEB SCRAPING DATA COLLECTION

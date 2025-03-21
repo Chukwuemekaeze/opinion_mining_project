@@ -4,9 +4,13 @@ charset-normalizer==3.4.1
 filelock==3.18.0
 idna==3.10
 lxml==5.3.1
+matplotlib==3.8.4
+nltk==3.9.1
+pandas==2.2.1
 PySocks==1.7.1
 requests==2.32.3
 snscrape==0.7.0.20230622
 soupsieve==2.6
 typing_extensions==4.12.2
 urllib3==2.3.0
+tweepy==4.10.0
