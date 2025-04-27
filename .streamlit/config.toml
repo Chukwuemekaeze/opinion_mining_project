@@ -1,0 +1,24 @@
+[server]
+# your app will run headless (no browser popup) and listen on port 8501 by default
+headless = true
+enableCORS = false
+# you can also set the port or baseUrlPath here if you like
+
+[theme]
+# choose the default “base” theme: "light" or "dark"
+base = "light"
+# override colors (all optional)
+primaryColor = "#4B8BBE"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+# code block background
+codeBackgroundColor = "#F5F5F5"
+# font options: "sans-serif", "serif", "monospace"
+font = "sans-serif"
+# roundness of UI elements
+baseRadius = "0.5rem"
+
+# (Optional) sidebar theming
+[theme.sidebar]
+backgroundColor = "#F7F7F8"

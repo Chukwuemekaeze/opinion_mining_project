@@ -5,6 +5,25 @@ import os
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# Sidebar theme selector
+theme = st.sidebar.selectbox("Choose theme", ["light","dark"])
+if theme == "dark":
+    st.markdown(
+        """
+        <style>
+        /* invert background & text */
+        .reportview-container {background: #262730;}
+        .sidebar .sidebar-content {background: #1f1f28;}
+        .main .block-container {color: #FAFAFA;}
+        /* adjust other elements as needed… */
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Then set page config (must come after import but before any other Streamlit call)
+st.set_page_config(layout="wide")
+
 # Database path explicitly set
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw", "edo_election_sentiment.db")
 
