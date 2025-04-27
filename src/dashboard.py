@@ -1,4 +1,11 @@
 import streamlit as st
+# ① Immediately set page config—no other st.* calls before this
+st.set_page_config(
+    page_title="📊 Edo Election Dashboard",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
+
 import sqlite3
 import pandas as pd
 import os
