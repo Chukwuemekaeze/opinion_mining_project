@@ -27,8 +27,6 @@ if theme == "dark":
         unsafe_allow_html=True
     )
 
-# Then set page config (must come after import but before any other Streamlit call)
-st.set_page_config(layout="wide")
 
 # Database path explicitly set
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "raw", "edo_election_sentiment.db")
