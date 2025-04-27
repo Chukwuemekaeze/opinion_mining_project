@@ -1,17 +1,16 @@
 import streamlit as st
-# ① Immediately set page config—no other st.* calls before this
-st.set_page_config(
-    page_title="📊 Edo Election Dashboard",
-    layout="wide",
-    initial_sidebar_state="auto"
-)
-
 import sqlite3
 import pandas as pd
 import os
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# ① Immediately set page config—no other st.* calls before this
+st.set_page_config(
+    page_title="📊 Edo Election Dashboard",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
 # Sidebar theme selector
 theme = st.sidebar.selectbox("Choose theme", ["light","dark"])
 if theme == "dark":
