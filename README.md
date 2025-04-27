@@ -184,5 +184,3 @@ To deploy your own:
 - **Lead Dev**: Chukwuemekaeze
 - **Contributor**: Kachi Osuji
 - Members of **Group 4**, **CSC 421**, Nnamdi Azikiwe University
-
-f
